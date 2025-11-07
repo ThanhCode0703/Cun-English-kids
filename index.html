@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐶 Cún English Kids Premium</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a2d0b6c59a.js"
+      crossorigin="anonymous"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet">
+  </head>
+
+  <body class="font-[Poppins] bg-duo-dark min-h-screen text-white flex">
+
+    <!-- LEFT SIDEBAR NAVIGATION -->
+    <aside id="left-sidebar" class="duo-sidebar-left">
+      <div class="duo-logo">
+        <span class="text-duo-green font-bold text-xl">Cún</span>
+      </div>
+      <nav class="duo-nav">
+        <a href="#" onclick="showPage('menu'); return false;"
+          class="duo-nav-item active" id="nav-learn">
+          <i class="fa-solid fa-house"></i>
+          <span>HỌC</span>
+        </a>
+        <a href="#" onclick="showPage('topics'); return false;"
+          class="duo-nav-item" id="nav-topics">
+          <i class="fa-solid fa-book"></i>
+          <span>CHỦ ĐỀ</span>
+        </a>
+        <a href="#" onclick="showPage('result'); return false;"
+          class="duo-nav-item" id="nav-leaderboard">
+          <i class="fa-solid fa-trophy"></i>
+          <span>BẢNG XẾP HẠNG</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="duo-main-content flex-1 flex flex-col">
+      <!-- Top Bar -->
+      <div class="duo-topbar">
+        <div class="flex items-center gap-3 flex-1">
+          <span class="duo-slogan">Mỗi ngày một từ, Cún học cùng bạn!</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <label for="toggle-audio"
+            class="text-sm cursor-pointer flex items-center gap-2">
+            <i class="fa-solid fa-volume-high"></i>
+            <span>Âm thanh</span>
+          </label>
+          <input id="toggle-audio" type="checkbox" class="w-4 h-4" checked>
+        </div>
+      </div>
+
+      <!-- MENU -->
+      <section id="menu"
+        class="duo-section flex-1 flex flex-col items-center justify-center gap-6 px-4">
+        <div class="duo-mascot-container">
+          <img
+            src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f436.svg"
+            alt="Cún mascot"
+            class="duo-mascot" />
+        </div>
+        <div class="text-center">
+          <h1 class="duo-title-main">Bắt đầu học tiếng Anh</h1>
+          <p class="duo-subtitle">Cùng Cún học và chơi mỗi ngày!</p>
+        </div>
+        <button onclick="showPage('topics')"
+          class="duo-btn-primary duo-btn-large">
+          <i class="fa-solid fa-play mr-2"></i> Bắt đầu học
+        </button>
+      </section>
+
+      <!-- CHỦ ĐỀ -->
+      <section id="topics"
+        class="duo-section hidden flex-1 flex flex-col py-6 px-6">
+        <div class="duo-path-header">
+          <h2 class="duo-title">Chọn Chủ Đề</h2>
+          <button onclick="showPage('menu')" class="duo-btn-secondary">
+            <i class="fa-solid fa-arrow-left mr-2"></i> Quay lại
+          </button>
+        </div>
+        <div id="topic-list" class="duo-topic-grid"></div>
+      </section>
+
+      <!-- FLASHCARDS -->
+      <section id="flashcards"
+        class="duo-section hidden flex-1 flex flex-col items-center justify-center py-6 px-6">
+        <div class="duo-lesson-banner">
+          <span id="topic-title" class="duo-lesson-title">📘 Học Từ Vựng</span>
+          <button class="duo-btn-guide">
+            <i class="fa-solid fa-book mr-2"></i> HƯỚNG DẪN
+          </button>
+        </div>
+        <div id="flashcard" class="duo-card">
+          <div id="card-content" class="duo-card-content"></div>
+          <img id="card-img" class="duo-card-img hidden">
+        </div>
+        <div class="duo-card-controls">
+          <button class="duo-btn-tab" onclick="setFace(0)">Từ</button>
+          <button class="duo-btn-tab" onclick="setFace(1)">Phiên âm</button>
+          <button class="duo-btn-tab" onclick="setFace(2)">Nghĩa</button>
+        </div>
+        <div class="duo-nav-controls">
+          <button onclick="prevWord()" class="duo-btn-nav">
+            <i class="fa-solid fa-arrow-left mr-2"></i> Lùi
+          </button>
+          <button onclick="nextWord()" class="duo-btn-nav">
+            Tiến <i class="fa-solid fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+        <div class="duo-action-buttons">
+          <button onclick="showPage('context')"
+            class="duo-btn-action duo-btn-yellow">
+            <i class="fa-solid fa-comments mr-2"></i> Học qua ví dụ
+          </button>
+          <button onclick="showPage('quiz')"
+            class="duo-btn-action duo-btn-blue">
+            <i class="fa-solid fa-puzzle-piece mr-2"></i> Làm trắc nghiệm
+          </button>
+          <button onclick="showPage('topics')" class="duo-btn-secondary">
+            <i class="fa-solid fa-arrow-left mr-2"></i> Quay lại
+          </button>
+        </div>
+      </section>
+
+      <!-- CONTEXT MODE -->
+      <section id="context"
+        class="duo-section hidden flex-1 flex flex-col items-center justify-center py-6 px-6">
+        <h2 class="duo-title mb-4">💬 Học qua ví dụ</h2>
+        <div id="context-area" class="duo-context-card"></div>
+        <div class="duo-action-buttons mt-6">
+          <button id="context-next" onclick="contextNext()"
+            class="duo-btn-primary">
+            <i class="fa-solid fa-arrow-right mr-2"></i> Tiếp theo
+          </button>
+          <button onclick="showPage('quiz')"
+            class="duo-btn-action duo-btn-blue">
+            <i class="fa-solid fa-puzzle-piece mr-2"></i> Làm trắc nghiệm
+          </button>
+          <button onclick="showPage('flashcards')" class="duo-btn-secondary">
+            <i class="fa-solid fa-arrow-left mr-2"></i> Thẻ từ
+          </button>
+        </div>
+      </section>
+
+      <!-- QUIZ -->
+      <section id="quiz"
+        class="duo-section hidden flex-1 flex flex-col py-6 px-6">
+        <h2 class="duo-title mb-4">🧩 Trắc Nghiệm</h2>
+        <div class="duo-quiz-container">
+          <div id="quiz-progress" class="duo-progress-bar">
+            <div id="quiz-bar" class="duo-progress-fill"></div>
+          </div>
+          <div id="quiz-nav" class="duo-quiz-nav"></div>
+          <div id="quiz-area" class="duo-quiz-area"></div>
+        </div>
+      </section>
+
+      <!-- KẾT QUẢ -->
+      <section id="result"
+        class="duo-section hidden flex-1 flex flex-col items-center justify-center py-6 px-6">
+        <h2 class="duo-title-large mb-4">🏆 Kết quả</h2>
+        <div id="score" class="duo-score-text mb-6"></div>
+        <div class="duo-leaderboard-card">
+          <h3 class="duo-subtitle mb-4">🎖️ Bảng xếp hạng</h3>
+          <ul id="leaderboard" class="duo-leaderboard-list"></ul>
+        </div>
+        <div class="duo-action-buttons mt-6">
+          <button onclick="showReview()" class="duo-btn-action duo-btn-blue">
+            <i class="fa-solid fa-eye mr-2"></i> Xem lại bài
+          </button>
+          <button onclick="showPage('topics')" class="duo-btn-primary">
+            <i class="fa-solid fa-redo mr-2"></i> Học lại
+          </button>
+        </div>
+      </section>
+
+      <!-- REVIEW -->
+      <section id="review"
+        class="duo-section hidden flex-1 flex flex-col py-6 px-6">
+        <h2 class="duo-title mb-4">👁️ Xem lại bài làm</h2>
+        <div id="review-list" class="duo-review-list"></div>
+        <div class="mt-6">
+          <button onclick="showPage('result')" class="duo-btn-secondary">
+            <i class="fa-solid fa-arrow-left mr-2"></i> Quay lại kết quả
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside id="right-sidebar" class="duo-sidebar-right">
+      <!-- Daily Quests -->
+      <div class="duo-sidebar-card">
+        <div class="duo-card-header">
+          <h3 class="duo-card-title">Nhiệm vụ hằng ngày</h3>
+          <a href="#" class="duo-link">XEM TẤT CẢ</a>
+        </div>
+        <div class="duo-quest-item">
+          <i class="fa-solid fa-bolt text-yellow-400"></i>
+          <span>Làm 10 bài kiểm tra</span>
+          <div class="duo-quest-progress">
+            <div id="quest-progress-bar" class="duo-quest-bar"
+              style="width: 0%"></div>
+            <span id="quest-progress-text" class="duo-quest-text">0 / 10</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unlock Leaderboard -->
+      <div class="duo-sidebar-card">
+        <div class="duo-unlock-card">
+          <i class="fa-solid fa-lock text-gray-400"></i>
+          <p class="duo-unlock-text">Hoàn thành thêm 10 bài học để bắt đầu thi
+            đua</p>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MODAL NHẬP TÊN -->
+    <div id="name-modal" class="duo-modal hidden">
+      <div class="duo-modal-overlay"></div>
+      <div class="duo-modal-content">
+        <h3 class="duo-modal-title">Nhập tên của bạn</h3>
+        <p class="duo-modal-subtitle">Để lưu điểm vào bảng xếp hạng</p>
+        <input type="text" id="player-name-input" class="duo-modal-input"
+          placeholder="Nhập tên của bạn..." maxlength="20" autofocus>
+        <div class="duo-modal-buttons">
+          <button onclick="savePlayerName()"
+            class="duo-btn-primary">Lưu</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÂM THANH -->
+    <audio id="audio"></audio>
+    <audio id="sound-correct"
+      src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4f13c2f95f.mp3?filename=correct-2-46134.mp3"></audio>
+    <audio id="sound-wrong"
+      src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9b6d51d23a.mp3?filename=error-126627.mp3"></audio>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
